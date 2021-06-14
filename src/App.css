@@ -35,4 +35,24 @@
   to {
     transform: rotate(360deg);
   }
+  
+}
+
+.NavBar {
+  display: flex;
+  background-color: #61dafb;
+  width: 100vw;
+  font-size: calc(10px + 2vw);
+  position: fixed;
+  top: 0px;
+}
+
+.customLink{
+ display: flex;
+  margin: 10px;
+}
+
+#p{
+  /* display: flex; */
+  /* margin: 10px; */
 }
