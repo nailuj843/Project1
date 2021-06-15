@@ -1,6 +1,6 @@
-import { useContext } from "react"
-import {Link} from 'react-router-dom'
-import AppContext from '../Context/AppContext'
+// import { useContext } from "react"
+// import {Link} from 'react-router-dom'
+// import AppContext from '../Context/AppContext'
 
 const Home = () => {
 return (

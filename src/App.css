@@ -56,3 +56,27 @@
   /* display: flex; */
   /* margin: 10px; */
 }
+
+.loading {
+  display: flex;
+  margin: 10px;
+}
+
+.cardBox {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  background-color: red;
+  width: auto;
+  height: auto;
+}
+
+.column{
+  display: flex;
+  flex-direction: column;
+}
+
+.row{
+  display: flex;
+  flex-direction: row;
+}
