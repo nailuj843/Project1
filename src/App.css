@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  
 }
 
 .App-logo {
@@ -14,7 +15,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: rgb(236, 193, 135);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -40,16 +41,29 @@
 
 .NavBar {
   display: flex;
-  background-color: #61dafb;
+  /* background-color: #254d58; */
+  background-color: rgb(116,87,27);
   width: 100vw;
   font-size: calc(10px + 2vw);
   position: fixed;
   top: 0px;
+  box-shadow: 0px 8px 8px -6px rgba(0,0,0,.5);
+  z-index: 99;
 }
 
 .customLink{
- display: flex;
+  display: flex;
+  /* align-content: center; */
+  align-items: center ;
+  justify-content: center;
   margin: 10px;
+  color: #ff0000;
+  font-family: 'papyrus';
+  
+  /* color: rgb(116,87,27); */
+  color: rgb(255,255,64);
+  /* color: rgb(232,158,24); */
+
 }
 
 #p{
@@ -66,17 +80,132 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  background-color: red;
+  justify-content: space-between;
+  /* background-color: red; */
   width: auto;
   height: auto;
-}
+}px
 
 .column{
   display: flex;
   flex-direction: column;
+  border-style: dashed;
+  justify-content: center;
+  align-items: center;
+  
+  border-color: rgb(168, 168, 162);
 }
 
 .row{
   display: flex;
   flex-direction: row;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted rgb(0, 0, 0);
+}
+
+.tooltip .tooltiptext {
+ 
+  max-width:100px;
+  padding:15px;
+  min-height:30px;
+  background:#fff;
+  visibility: hidden;
+  border: 1px solid black;
+  color: #000;
+  text-align: center;
+  border-radius: 6px;
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  word-wrap:break-word;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.categoryImage{
+  display: flex;
+  min-width: 250px;
+  max-width: 600px;
+}
+
+.customInput{
+  display: flex;
+  font-size: calc(14px + 1vw);
+  width: 400px;
+}
+
+input[type=text] {
+  /* transition: width 1s ease-in-out; */
+}
+
+input[type=text]:focus {
+  /* width: 50%; */
+}
+
+.customButton{
+  display: flex;
+  font-size: 50px;
+  height: calc( 50px + 2vw );
+  /* padding: 15px; */
+}
+
+.imgBox{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.centerFit{
+  max-width: 100%;
+  max-height: 800vh;
+  margin: auto;
+}
+
+.centered{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchBar{
+  position: relative;
+  width:250px; 
+  z-index: 10;
+}
+
+.searchBar input{
+  position: relative;
+  /* z-index: 1; */
+  border:none; 
+  background: none;
+  font-size: 30px;
+  display:block; 
+  width: 70%; 
+  color: white;
+  border: none;
+  font-family: 'copperplate';
+}
+.searchBar input:focus, textarea {
+  outline: none !important;
+}
+.searchBar img{
+  
+  position: absolute; 
+  top: -13px;
+  right: 10px;
+  z-index: -1;
+}
+
+.customListBox{
+  display: flex;
+  font-size: 30px;
 }

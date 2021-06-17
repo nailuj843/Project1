@@ -8,12 +8,13 @@ const Category = () => {
     const {data} = useContext(AppContext)
     const {setCard} = useContext(AppContext)
     const {toggleView, setToggleView} = useContext(AppContext)
+    const {images} = useContext(AppContext)
     
     
     if(!data){
         window.location.href = 'http://localhost:3000'
     }
-    
+    window.scrollTo(0, 0);
     // console.log(data[category])
 
     // data alot of categories
@@ -37,14 +38,27 @@ const Category = () => {
     // playerClass: "Neutral"
     // text: "Reduced Cost."
     // type: "Enchantment"
+
+    // only show cards that have images
     let filteredData = data[category].filter(card => card.img)
+
+    
+    
+
    // console.log(data[category].filter(card => card.img))
 
     return (
         <div>
             <br></br>
             <br></br>
-            This is the Category page {category}
+            <br></br>
+            {/* This is the Category page {category} */}
+
+            <img src={images[category]}></img>
+
+            <br/><br/>
+
+
               <button onClick = {() => HandleToggleViewClick()} > Show All </button>  
             
 
@@ -52,7 +66,7 @@ const Category = () => {
                 {filteredData.map(card => 
                     <Link className='customLink' to="/IndividualCard" onClick={() => UpdateCard(card)}>
                         <div className='column'>
-                            {card.name} <br></br>
+                            {/* {card.name} <br></br> */}
                             {/* <img src={card.img} ></img>  */}
                               { toggleView ? <img src={card.img} width="100px" alt={card.name} ></img> : <img src={card.img} alt={card.name}  ></img>}  
                         </div>
