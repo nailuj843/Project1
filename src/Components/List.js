@@ -14,7 +14,7 @@ const List = () => {
     if(!data){
         window.location.href = 'http://localhost:3000'
     }
-    window.scrollTo(0, 0);
+  //  window.scrollTo(0, 0);
     let keys = Object.keys(data).sort()
 
     

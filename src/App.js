@@ -77,6 +77,8 @@ function App() {
   const [cardCollection, setCardCollection] = useState([])
   const [cardCollectionLoaded, setCardCollectionLoaded] = useState(false)
   const [filters, setFilters] = useState([])
+  const [visible, setVisible] = useState(true)
+  const [showFilterOptions, setShowFilterOptions] = useState(AppContext)
   // console.log('this is the object')
   // console.log(images)
   
@@ -101,6 +103,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        
         <Router>
           <AppContext.Provider value={{data, setData, 
                                        category,setCategory ,
@@ -113,7 +116,9 @@ function App() {
                                        yPos, setyPos,
                                        cardCollection, setCardCollection,
                                        cardCollectionLoaded, setCardCollectionLoaded,
-                                       filters, setFilters}}>
+                                       filters, setFilters,
+                                       visible, setVisible,
+                                       showFilterOptions, setShowFilterOptions}}>
           
           <NavBar></NavBar>
 

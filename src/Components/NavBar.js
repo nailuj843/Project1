@@ -1,6 +1,9 @@
 import { useContext } from "react"
 import {Link} from 'react-router-dom'
 import AppContext from '../Context/AppContext'
+import ScrollButton from './ScrollButton.js'
+
+// '../
 
 const NavBar = () => {
 
@@ -12,7 +15,10 @@ const NavBar = () => {
             { data ? <Link className='customLink' to="/" >Home</Link> : <div className = 'loading'> Loading </div> }
             { data ? <Link className='customLink' to="/List" >List</Link> : <div className='loading'> Please </div>}
             { data ? <Link className='customLink' to="/Search" >Search</Link> : <div className='loading'> Wait </div>}
+            <ScrollButton/>
         </div>
+       
+        
 
     )
 }

@@ -66,10 +66,18 @@
 
 }
 
+.customHeader{
+  display: flex;
+  flex-direction: column;
+  
+  align-items: center;
+}
+
 .customFont{
   font-family: 'papyrus';
-  color: rgb(214, 214, 23);
-  text-shadow: -1px 0 black, 0 0px black, 0px 0 black, 0 -1px black;
+  color: rgb(98, 76, 13);
+  /* text-shadow: 3px 3px black; */
+  font-weight: bold;
 }
 
 #p{
@@ -136,7 +144,12 @@
 
 .categoryImage{
   display: flex;
-  min-width: 250px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+  min-width: 600px;
   max-width: 600px;
 }
 
@@ -226,4 +239,18 @@ input[type=text]:focus {
 .customListBox{
   display: flex;
   font-size: 30px;
+  background-color:rgb(116,87,27);
+  font-size: 30px;
+  color: rgb(255,255,64);
+  font-family: "papyrus";
+  border-radius: 30px; 
+  outline: none;
+}
+
+.scrollButton {
+  position: absolute;
+  right: 0%;
+  background-color:  rgb(98, 76, 13);
+  color:rgb(255,255,64) ;
+  font: 'papyrus';
 }

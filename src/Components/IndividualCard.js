@@ -13,11 +13,11 @@ const IndividualCard = () => {
      window.scrollTo(0, 0);
     
     
-    console.log(card)
+    
 
     function checkForValue(value){
-        console.log(value)
-        console.log(card[value])
+        // console.log(value)
+        // console.log(card[value])
         if(card[value] !== undefined){
             return(
                 <div> {value.toUpperCase()} : {card[value]}  <br/></div>
@@ -45,6 +45,7 @@ const IndividualCard = () => {
             {checkForValue('rarity')} 
             {/* Rarity: {card.rarity} <br/> */}
             Type: {card.type} <br/>
+            Race: {card.race} <br/>
             Set: {card.cardSet} <br/>
             </div>
 

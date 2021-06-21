@@ -18,11 +18,13 @@ const Search = () => {
     const {yPos, setyPos} = useContext(AppContext)
     const {cardCollectionLoaded, setCardCollectionLoaded} = useContext(AppContext)
     const {cardCollection, setCardCollection} = useContext(AppContext)
-
+    const {filters, setFilters}= useContext(AppContext)
+    const {showFilterOptions, setShowFilterOptions} = useContext(AppContext)
+    
     if(!data){
         window.location.href = 'http://localhost:3000'
     }
-    // let cardCollection = []
+ //   window.scrollTo(0, 0);
 
     //  tried to have the card collection only be calculated once
 
@@ -58,10 +60,8 @@ const Search = () => {
 
     function Search(searchValue){
         let localSearchResults = []
+        let currentFilters = filters
         
-        console.log('Search is running')
-        console.log('searchResults' , searchResults )
-        console.log('cardCollection', cardCollection)    
         
         let key = ''
         // cost=3
@@ -88,9 +88,9 @@ const Search = () => {
             // if searchResults === 'blank' then look through the whole card Collection
 
             // else look through the searchResults
-            console.log('key is start')
+            
             if (searchResults.length === 0) {
-                console.log('searchResults was blank')
+                
                 cardCollection.forEach(card => {
                     if(card.name.search(new RegExp(searchValue, "i")) ===  0)  {
                         // card name was found, add it to the localSearchResults
@@ -216,25 +216,105 @@ const Search = () => {
         if(key === 'name'){
             if (searchResults.length === 0) {
                 cardCollection.forEach(card => {
+                    
+                        if(card.name.search(new RegExp(searchValue, "i")) !== -1 )  {
+                            // card name was found, add it to the localSearchResults
+                            localSearchResults.push(card)
+                        }
+                    
+                })
+            }else{
+                searchResults.forEach(card => {
+                    
+                        if(card.name.search(new RegExp(searchValue, "i")) !== -1 )  {
+                            // card name was found, add it to the localSearchResults
+                            localSearchResults.push(card)
+                        }
+                    
+                })
+            
+            }
+        }
 
-                    if(card.name.search(new RegExp(searchValue, "i")) !== -1 )  {
-                        // card name was found, add it to the localSearchResults
-                        localSearchResults.push(card)
+        if(key === 'race'){
+            if (searchResults.length === 0) {
+                cardCollection.forEach(card => {
+                    if(card.race){
+                        if(card.race.search(new RegExp(searchValue, "i")) !== -1 )  {
+                            // card name was found, add it to the localSearchResults
+                            localSearchResults.push(card)
+                        }
                     }
                 })
             }else{
                 searchResults.forEach(card => {
-
-                    if(card.name.search(new RegExp(searchValue, "i")) !== -1 )  {
-                        // card name was found, add it to the localSearchResults
-                        localSearchResults.push(card)
+                    if(card.race){
+                        if(card.race.search(new RegExp(searchValue, "i")) !== -1 )  {
+                            // card name was found, add it to the localSearchResults
+                            localSearchResults.push(card)
+                        }
                     }
                 })
             
             }
         }
 
+        if(key === 'playerClass'){
+            if (searchResults.length === 0) {
+                cardCollection.forEach(card => {
+                    if(card.playerClass){
+                        if(card.playerClass.search(new RegExp(searchValue, "i")) !== -1 )  {
+                            // card name was found, add it to the localSearchResults
+                            localSearchResults.push(card)
+                        }
+                    }
+                })
+            }else{
+                searchResults.forEach(card => {
+                    if(card.playerClass){
+                        if(card.playerClass.search(new RegExp(searchValue, "i")) !== -1 )  {
+                            // card name was found, add it to the localSearchResults
+                            localSearchResults.push(card)
+                        }
+                    }
+                })
+            
+            }
+        }
 
+        if(key === 'mechanics'){
+            if (searchResults.length === 0) {
+                cardCollection.forEach(card => {
+                    if(card.mechanics){
+
+                        card.mechanics.forEach(mech => {
+                            
+                            if(mech.name.search(new RegExp(searchValue, "i")) !== -1 )  {
+                                // card name was found, add it to the localSearchResults
+                                localSearchResults.push(card)
+                            }
+                        })
+
+                        
+                    }
+                })
+            }else{
+                searchResults.forEach(card => {
+                    if(card.mechanics){
+
+                        card.mechanics.forEach(mech => {
+                            if(mech.name.search(new RegExp(searchValue, "i")) !== -1 )  {
+                                // card name was found, add it to the localSearchResults
+                                localSearchResults.push(card)
+                            }
+                        })
+
+                        
+                    }
+                })
+            
+            }
+        }
         // console.log(localSearchResults)
         
         // sort the array alphabetically
@@ -244,9 +324,10 @@ const Search = () => {
             return ((x < y) ? -1 : ((x > y) ? 1 : 0));
         });
 
-        console.log('filteredResults', filteredResults)
+        
         setSearchResults(filteredResults)
-
+        currentFilters.push(`${key} = ${searchValue}`)
+        setFilters(currentFilters)
     }
 
     function UpdateCard(newCard) {
@@ -264,6 +345,10 @@ const Search = () => {
     
     function HandleChange(event){
         // console.log('you made a change' + event.target.value)
+        if(showFilterOptions === false){
+        //    setShowFilterOptions(true)
+        }
+        
     }
 
     function ManaMouseEnter(){
@@ -272,6 +357,47 @@ const Search = () => {
 
     function ManaLeave(){
         setManaFilter(ManaSelection)
+    }
+
+    function displayFilterOptions(){
+        let optionIndex = document.getElementById('filter')
+
+        if(optionIndex === null){
+            return
+        }else{
+            optionIndex = document.getElementById('filter').selectedIndex
+        }
+
+        let key = document.getElementsByTagName("option")[optionIndex].value;
+      
+        // console.log(key)
+        if(key === 'mechanics'){
+            
+
+            
+
+            return(
+                <div>
+                    <label for="filterOptions"  >{key}</label>
+                    <select name="filterOptions" id="filterOptions" className='customListBox' >
+                        <option value="type" >Type</option>
+                        <option value="cost">Cost</option>
+                        <option value="rarity">Rarity</option>
+                        <option value="name" selected >Name</option>
+                        <option value="start">Starts With...</option>
+                        <option value="health">Health</option>
+                        <option value="race">Race</option>
+                        <option value="playerClass">Class</option>
+                        <option value="mechanics">Keywords (Mechanics)</option>
+                    </select>
+                </div>
+            )
+        }
+
+        // if(showFilterOptions === true){
+        //     setShowFilterOptions(false)
+        // }
+        
     }
 
     function ManaClick(){
@@ -343,7 +469,9 @@ const Search = () => {
     }
 
     function resetFilter () {
-        setCardCollectionLoaded(false)
+        setSearchResults([])
+        
+        setFilters([])
     }
 
     function MouseMove(e){
@@ -352,6 +480,16 @@ const Search = () => {
 
         setxPos(e.nativeEvent.offsetX)
         setyPos(e.nativeEvent.offsetY)
+    }
+
+    function displayFilters () {
+        // return (<div> some dummy text </div>)
+
+
+        return(
+            <div className='customFont'> {filters.map( filter => `${filter} , ` )} </div>
+        )
+
     }
 
     return (
@@ -391,19 +529,29 @@ const Search = () => {
                     <img src={SearchBarImage}></img>
                     
                 </div>
-                <br/><br/>
+
+                <br/>
+                <>{displayFilters()}</>
+                <br/>
                 <button className="resetButton" onClick={resetFilter}>Reset</button>
                 <br/><br/>
 
                 <label for="filter"  >Choose a Filter:</label>
-                <select name="filter" id="filter" className='customListBox' onChange ={HandleChange}>
+                <select name="filter" id="filter" className='customListBox' onChange ={() => HandleChange}>
                     <option value="type" >Type</option>
                     <option value="cost">Cost</option>
                     <option value="rarity">Rarity</option>
-                    <option value="name">Name</option>
+                    <option value="name" defaultValue>Name</option>
                     <option value="start">Starts With...</option>
                     <option value="health">Health</option>
+                    <option value="race">Race</option>
+                    <option value="playerClass">Class</option>
+                    <option value="mechanics">Keywords (Mechanics)</option>
                 </select>
+                
+               
+               
+               {showFilterOptions ? displayFilterOptions() : <></>}
 
                 <br></br>
 

@@ -14,7 +14,7 @@ const Category = () => {
     if(!data){
         window.location.href = 'http://localhost:3000'
     }
-    window.scrollTo(0, 0);
+  //  window.scrollTo(0, 0);
     // console.log(data[category])
 
     // data alot of categories
@@ -48,13 +48,14 @@ const Category = () => {
    // console.log(data[category].filter(card => card.img))
 
     return (
-        <div>
+        <div className="customHeader">
             <br></br>
             <br></br>
             <br></br>
+            
             {/* This is the Category page {category} */}
 
-            <img src={images[category]}></img>
+            <img className='categoryImage' src={images[category]}></img>
 
             <br/><br/>
 
@@ -71,7 +72,7 @@ const Category = () => {
                               { toggleView ? <img src={card.img} width="100px" alt={card.name} ></img> : <img src={card.img} alt={card.name}  ></img>}  
                         </div>
                     </Link> )}
-
+               
             </div>
         </div>
 
