@@ -78,7 +78,7 @@ function App() {
   const [cardCollectionLoaded, setCardCollectionLoaded] = useState(false)
   const [filters, setFilters] = useState([])
   const [visible, setVisible] = useState(true)
-  const [showFilterOptions, setShowFilterOptions] = useState(AppContext)
+  const [showFilterOptions, setShowFilterOptions] = useState(false)
   // console.log('this is the object')
   // console.log(images)
   

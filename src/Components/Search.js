@@ -346,7 +346,7 @@ const Search = () => {
     function HandleChange(event){
         // console.log('you made a change' + event.target.value)
         if(showFilterOptions === false){
-        //    setShowFilterOptions(true)
+            setShowFilterOptions(true)
         }
         
     }
@@ -360,6 +360,7 @@ const Search = () => {
     }
 
     function displayFilterOptions(){
+        
         let optionIndex = document.getElementById('filter')
 
         if(optionIndex === null){
