@@ -16,7 +16,9 @@ const Search = () => {
     const {manaFilter, setManaFilter} = useContext(AppContext)
     const {xPos, setxPos} = useContext(AppContext)
     const {yPos, setyPos} = useContext(AppContext)
- //   const {cardCollection, setCardCollection} = useContext(AppContext)
+    const {cardCollectionLoaded, setCardCollectionLoaded} = useContext(AppContext)
+    const {cardCollection, setCardCollection} = useContext(AppContext)
+
     if(!data){
         window.location.href = 'http://localhost:3000'
     }
@@ -24,33 +26,42 @@ const Search = () => {
 
     //  tried to have the card collection only be calculated once
 
-    //const resetFilter = () => {
-        let keys = Object.keys(data).sort()
-        keys = keys.filter(key => data[key].length > 0 )
+    useEffect(resetCollection, [])
 
-        // make a giant list of cards, (split everything out from the default categories)
-        let cardCollection = []
+    function resetCollection(){
+       
+        if (cardCollectionLoaded === false){
+            
+            let keys = Object.keys(data).sort()
+            keys = keys.filter(key => data[key].length > 0 )
 
-        for(let x=0; x<keys.length; x++){
-            // console.log(data[keys[x]])
-            cardCollection = cardCollection.concat(data[keys[x]])
-            // console.log(cardCollection)
-        }
+            // make a giant list of cards, (split everything out from the default categories)
+            let newCardCollection = []
 
-        // filter out only entries that have an image
-        cardCollection = cardCollection.filter(card => card.img)
-        
-        // console.log(cardCollection)
-        // setCardCollection(resetCollection)
-    //}
+            for(let x=0; x<keys.length; x++){
+                // console.log(data[keys[x]])
+                newCardCollection = newCardCollection.concat(data[keys[x]])
+                // console.log(cardCollection)
+            }
+
+            // filter out only entries that have an image
+            
+            newCardCollection = newCardCollection.filter(card => card.img)
+
+            
+
+            setCardCollection(newCardCollection)
+            setCardCollectionLoaded(true)
+
+        } 
+    }
 
     function Search(searchValue){
         let localSearchResults = []
         
-        // useEffect( resetFilter, [] )
-
-      //  useEffect(resetFilter, [] )
-            
+        console.log('Search is running')
+        console.log('searchResults' , searchResults )
+        console.log('cardCollection', cardCollection)    
         
         let key = ''
         // cost=3
@@ -73,12 +84,30 @@ const Search = () => {
         // if key=start
 
         if(key === 'start'){
-            cardCollection.forEach(card => {
-                if(card.name.search(new RegExp(searchValue, "i")) ===  0)  {
-                    // card name was found, add it to the localSearchResults
-                    localSearchResults.push(card)
-                }
-            })
+
+            // if searchResults === 'blank' then look through the whole card Collection
+
+            // else look through the searchResults
+            console.log('key is start')
+            if (searchResults.length === 0) {
+                console.log('searchResults was blank')
+                cardCollection.forEach(card => {
+                    if(card.name.search(new RegExp(searchValue, "i")) ===  0)  {
+                        // card name was found, add it to the localSearchResults
+                        localSearchResults.push(card)
+                    }
+                    
+                })
+            } else {
+                searchResults.forEach(card => {
+                    if(card.name.search(new RegExp(searchValue, "i")) ===  0)  {
+                        // card name was found, add it to the localSearchResults
+                        localSearchResults.push(card)
+                    }
+                    
+                })
+            }
+            
         }
 
         if(key === 'cost'){
@@ -90,41 +119,73 @@ const Search = () => {
                 return
             }
 
-            cardCollection.forEach(card => {
-                if(card.cost ===  searchValue)  {
-                    // card name was found, add it to the localSearchResults
-                    localSearchResults.push(card)
-                }
-            })
+            if (searchResults.length === 0) {
+                cardCollection.forEach(card => {
+                    if(card.cost ===  searchValue)  {
+                        // card name was found, add it to the localSearchResults
+                        localSearchResults.push(card)
+                    }else if(searchValue === 10) {
+                        if(card.cost >= 10) {
+                            localSearchResults.push(card)
+                        }
+                    }
+                })
+            } else {
+                searchResults.forEach(card => {
+                    if(card.cost ===  searchValue)  {
+                        // card name was found, add it to the localSearchResults
+                        localSearchResults.push(card)
+                    }else if(searchValue === 10) {
+                        if(card.cost >= 10) {
+                            localSearchResults.push(card)
+                        }
+                    }
+                })
+            }
         }
 
         if(key === 'type'){
-            cardCollection.forEach(card => {
 
-                
+            if (searchResults.length === 0) {
+                cardCollection.forEach(card => {
                     if(card.type.search(new RegExp(searchValue, "i")) !== -1 )  {
                         // card name was found, add it to the localSearchResults
                         localSearchResults.push(card)
                     }
-                
-
-                
-            })
+                })
+            }else{
+                searchResults.forEach(card => {
+                    if(card.type.search(new RegExp(searchValue, "i")) !== -1 )  {
+                        // card name was found, add it to the localSearchResults
+                        localSearchResults.push(card)
+                    }
+                })
+            }
         }
         
 
         if(key === 'rarity'){
-            cardCollection.forEach(card => {
-
-                if(card.rarity){
-
-                
-                if(card.rarity.search(new RegExp(searchValue, "i")) !== -1 )  {
-                    // card name was found, add it to the localSearchResults
-                    localSearchResults.push(card)
-                }
+            if (searchResults.length === 0) {
+                cardCollection.forEach(card => {
+                    if(card.rarity){
+                        if(card.rarity.search(new RegExp(searchValue, "i")) !== -1 )  {
+                            // card name was found, add it to the localSearchResults
+                            localSearchResults.push(card)
+                        }
+                    }
+                })
+            }else{
+                searchResults.forEach(card => {
+                    if(card.rarity){
+                        if(card.rarity.search(new RegExp(searchValue, "i")) !== -1 )  {
+                            // card name was found, add it to the localSearchResults
+                            localSearchResults.push(card)
+                        }
+                    }
+                })
             }
-            })
+
+            
         }
 
         if(key === 'health'){
@@ -135,23 +196,42 @@ const Search = () => {
                 alert('Please enter a valid number')
                 return
             }
-
-            cardCollection.forEach(card => {
-                if(card.health ===  searchValue)  {
-                    // card name was found, add it to the localSearchResults
-                    localSearchResults.push(card)
-                }
-            })
+            if (searchResults.length === 0) {
+                cardCollection.forEach(card => {
+                    if(card.health ===  searchValue)  {
+                        // card name was found, add it to the localSearchResults
+                        localSearchResults.push(card)
+                    }
+                })
+            }else{
+                searchResults.forEach(card => {
+                    if(card.health ===  searchValue)  {
+                        // card name was found, add it to the localSearchResults
+                        localSearchResults.push(card)
+                    }
+                })
+            }
         }
-
+        
         if(key === 'name'){
-            cardCollection.forEach(card => {
+            if (searchResults.length === 0) {
+                cardCollection.forEach(card => {
 
-                if(card.name.search(new RegExp(searchValue, "i")) !== -1 )  {
-                    // card name was found, add it to the localSearchResults
-                    localSearchResults.push(card)
-                }
-            })
+                    if(card.name.search(new RegExp(searchValue, "i")) !== -1 )  {
+                        // card name was found, add it to the localSearchResults
+                        localSearchResults.push(card)
+                    }
+                })
+            }else{
+                searchResults.forEach(card => {
+
+                    if(card.name.search(new RegExp(searchValue, "i")) !== -1 )  {
+                        // card name was found, add it to the localSearchResults
+                        localSearchResults.push(card)
+                    }
+                })
+            
+            }
         }
 
 
@@ -164,7 +244,7 @@ const Search = () => {
             return ((x < y) ? -1 : ((x > y) ? 1 : 0));
         });
 
-
+        console.log('filteredResults', filteredResults)
         setSearchResults(filteredResults)
 
     }
@@ -195,47 +275,75 @@ const Search = () => {
     }
 
     function ManaClick(){
+        let textBox = document.getElementById('textbox')
+        let element = document.getElementById('filter');
+        element.value = 'cost'
+        // textBox.value = ''
         setManaFilter(ManaSelectionClick)
 
         switch(true){
             case (xPos < 65):
                 console.log(0)
+                textBox.value='0'
                 break
             case (xPos>=65 && xPos < 120):
                 console.log(1)
+                textBox.value='1'
                 break
             case (xPos>=120 && xPos < 175):
                 console.log(2)
+                textBox.value='2'
                 break
             case (xPos>=175 && xPos < 230):
                 console.log(3)
+                textBox.value='3'
                 break
             case (xPos>=230 && xPos < 285):
                 console.log(4)
+                textBox.value='4'
                 break
             case (xPos>=285 && xPos < 340):
                 console.log(5)
+                textBox.value='5'
                 break
             case (xPos>=340 && xPos < 395):
                 console.log(6)
+                textBox.value='6'
                 break
             case (xPos>=395 && xPos < 450):
                 console.log(7)
+                textBox.value='7'
                 break
             case (xPos>=450 && xPos < 505):
                 console.log(8)
+                textBox.value='8'
                 break
             case (xPos>=505 && xPos < 560):
                 console.log(9)
+                textBox.value='9'
                 break
             case (xPos>=560 ):
                 console.log(10)
+                textBox.value='10'
                 break
             default:
                 break;
-        }
 
-        
+        }
+      Search(textBox.value)
+        //Search(textBox.value)
+    }
+    function setManaClickHandler () {
+    
+     let textBox = document.getElementById('textbox')
+     let element = document.getElementById('filter');
+     element.value = 'cost'
+     textBox.value = ''
+     // 'selected'
+    }
+
+    function resetFilter () {
+        setCardCollectionLoaded(false)
     }
 
     function MouseMove(e){
@@ -262,12 +370,20 @@ const Search = () => {
                 
                 <br/><br/>
 
-                <img src={manaFilter} onMouseLeave={ManaLeave} onMouseEnter={ManaMouseEnter} onMouseDown={ManaClick} onMouseUp={ManaMouseEnter} onMouseMove={(e) => MouseMove(e)} ></img>
-                <br/><br/>
+                <img src={manaFilter}   onMouseLeave={ManaLeave} 
+                                        onMouseEnter={ManaMouseEnter} 
+                                        onMouseDown={ManaClick} 
+                                        onMouseUp={ManaMouseEnter} 
+                                        
+                                        onMouseMove={(e) => MouseMove(e)} ></img>
+                <br/>
+
+                <div className='customFont'>
                 X : {xPos}
-                <br/><br/>
+                <br/>
                 Y : {yPos}
                 <br/><br/>
+                </div>
                 
                 <div className='searchBar'  >
                     
@@ -275,7 +391,8 @@ const Search = () => {
                     <img src={SearchBarImage}></img>
                     
                 </div>
-                
+                <br/><br/>
+                <button className="resetButton" onClick={resetFilter}>Reset</button>
                 <br/><br/>
 
                 <label for="filter"  >Choose a Filter:</label>

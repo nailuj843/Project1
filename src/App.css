@@ -66,6 +66,12 @@
 
 }
 
+.customFont{
+  font-family: 'papyrus';
+  color: rgb(214, 214, 23);
+  text-shadow: -1px 0 black, 0 0px black, 0px 0 black, 0 -1px black;
+}
+
 #p{
   /* display: flex; */
   /* margin: 10px; */
@@ -84,7 +90,7 @@
   /* background-color: red; */
   width: auto;
   height: auto;
-}px
+}
 
 .column{
   display: flex;
@@ -93,7 +99,7 @@
   justify-content: center;
   align-items: center;
   
-  border-color: rgb(168, 168, 162);
+  border-color: rgb(68, 68, 56);
 }
 
 .row{
@@ -190,12 +196,15 @@ input[type=text]:focus {
   font-size: 30px;
   display:block; 
   width: 70%; 
-  color: white;
+  color: rgb(255,255,64);
   border: none;
   font-family: 'copperplate';
 }
-.searchBar input:focus, textarea {
+.searchBar input:focus, textarea{
   outline: none !important;
+  color: rgb(255,255,64);
+  /* text-shadow: -1px 0 black, 0 0px black, 0px 0 black, 0 -1px black; */
+ 
 }
 .searchBar img{
   
@@ -203,6 +212,15 @@ input[type=text]:focus {
   top: -13px;
   right: 10px;
   z-index: -1;
+}
+
+.resetButton {
+  font-size: 30px;
+  color: rgb(255,255,64);
+  font-family: "papyrus";
+  border-radius: 30px; 
+  background-color:  rgb(116,87,27);
+
 }
 
 .customListBox{

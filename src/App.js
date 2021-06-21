@@ -75,7 +75,8 @@ function App() {
   const [xPos, setxPos] = useState (0)
   const [yPos, setyPos] = useState (0)
   const [cardCollection, setCardCollection] = useState([])
-
+  const [cardCollectionLoaded, setCardCollectionLoaded] = useState(false)
+  const [filters, setFilters] = useState([])
   // console.log('this is the object')
   // console.log(images)
   
@@ -110,7 +111,9 @@ function App() {
                                        manaFilter, setManaFilter,
                                        xPos, setxPos,
                                        yPos, setyPos,
-                                       cardCollection, setCardCollection}}>
+                                       cardCollection, setCardCollection,
+                                       cardCollectionLoaded, setCardCollectionLoaded,
+                                       filters, setFilters}}>
           
           <NavBar></NavBar>
 

@@ -31,21 +31,22 @@ const IndividualCard = () => {
 
 
         <div >
-            <br></br>
-            <br></br>
+            <br/><br/>
+            <br/><br/>
 
-
-            {checkForValue('name')}
-            {checkForValue('flavor')}
+            <div className = 'customFont'>
+            {/* {checkForValue('name')}  */}
+            {checkForValue('flavor')} 
             {/* Flavor Text: {card.flavor} <br/> */}
-            {checkForValue('spellSchool')}
+            {checkForValue('spellSchool')} 
             {/* School: {card.spellSchool} <br/> */}
             {checkForValue('playerClass')}
             {/* Class: {card.playerClass} <br/> */}
-            {checkForValue('rarity')}
+            {checkForValue('rarity')} 
             {/* Rarity: {card.rarity} <br/> */}
             Type: {card.type} <br/>
             Set: {card.cardSet} <br/>
+            </div>
 
             <div className = 'imgBox'>
 
